@@ -1,0 +1,47 @@
+load("@rules_zig//zig:defs.bzl", "zig_binary", "zig_library", "zig_test")
+
+# Library module (exposed as "zig_learning" for @import("zig_learning"))
+zig_library(
+    name = "zig_learning",
+    main = "src/root.zig",
+)
+
+# Main executable
+zig_binary(
+    name = "binary",
+    main = "src/main.zig",
+    srcs = glob(
+        ["src/**/*.zig"],
+        exclude = [
+            "src/main.zig",
+            "src/root.zig",
+        ],
+    ),
+    deps = [
+        ":zig_learning",
+        "@zio//:zio",
+    ],
+)
+
+# Tests for the library module
+zig_test(
+    name = "lib_test",
+    main = "src/root.zig",
+)
+
+# Tests for the binary module
+zig_test(
+    name = "bin_test",
+    main = "src/main.zig",
+    srcs = glob(
+        ["src/**/*.zig"],
+        exclude = [
+            "src/main.zig",
+            "src/root.zig",
+        ],
+    ),
+    deps = [
+        ":zig_learning",
+        "@zio//:zio",
+    ],
+)

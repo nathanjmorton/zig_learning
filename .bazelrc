@@ -1,0 +1,4 @@
+# Required for rules_zig: allow Zig cache persistence in the sandbox.
+common --enable_platform_specific_config
+build:macos --sandbox_add_mount_pair=/var/tmp
+build:linux --sandbox_add_mount_pair=/tmp

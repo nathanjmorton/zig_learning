@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Zig",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceRoot}/zig-out/bin/${workspaceFolderBasename}",
+      "args": [],
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": "zig build"
+    },
+    {
+      "name": "Debug Current Zig File",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceRoot}/zig-out/bin/${fileBasenameNoExtension}",
+      "args": [],
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": "zig build-exe current file"
+    }
+  ]
+}

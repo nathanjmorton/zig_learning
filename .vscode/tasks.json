@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "zig build",
+      "type": "shell",
+      "command": "zig build",
+      "args": ["-Doptimize=Debug"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "zig build-exe current file",
+      "type": "shell",
+      "command": "zig",
+      "args": [
+        "build-exe",
+        "${file}",
+        "-femit-bin=zig-out/bin/${fileBasenameNoExtension}"
+      ],
+      "group": "build",
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}

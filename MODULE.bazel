@@ -1,0 +1,22 @@
+module(
+    name = "zig_learning",
+    version = "0.0.0",
+)
+
+bazel_dep(name = "rules_zig", version = "0.14.0")
+
+zig = use_extension("@rules_zig//zig:extensions.bzl", "zig")
+zig.toolchain(zig_version = "0.16.0")
+use_repo(zig, "zig_toolchains")
+
+register_toolchains("@zig_toolchains//:all")
+
+# zio async I/O dependency
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "zio",
+    url = "https://github.com/lalinsky/zio/archive/refs/tags/v0.11.0.tar.gz",
+    strip_prefix = "zio-0.11.0",
+    integrity = "sha256-rX9wGDXWLp832vQyWHjBgEK5JwpHmgjbe35IsftborE=",
+    build_file = "//:third_party/zio.BUILD.bazel",
+)

@@ -1,0 +1,23 @@
+load("@rules_zig//zig:defs.bzl", "zig_library")
+
+# Generate the build options file that zio expects from @import("zio_options").
+# In the normal Zig build system this is produced by build.zig's addOptions().
+genrule(
+    name = "gen_zio_options",
+    outs = ["zio_options.zig"],
+    cmd = """echo 'pub const backend: ?[]const u8 = null;' > $@""",
+)
+
+zig_library(
+    name = "zio_options",
+    main = ":gen_zio_options",
+    visibility = ["//visibility:public"],
+)
+
+zig_library(
+    name = "zio",
+    main = "src/zio.zig",
+    srcs = glob(["src/**/*.zig"], exclude = ["src/zio.zig"]),
+    deps = [":zio_options"],
+    visibility = ["//visibility:public"],
+)
