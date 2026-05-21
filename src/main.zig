@@ -4,7 +4,7 @@ const zio = @import("zio");
 
 const zig_learning = @import("zig_learning");
 
-const num_tasks = 10_000;
+const num_tasks = 1000;
 fn task(io: std.Io) std.Io.Cancelable!void {
     try io.sleep(.fromMilliseconds(100), .awake);
 }
