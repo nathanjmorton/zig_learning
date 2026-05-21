@@ -4,7 +4,7 @@
 # ZIGTSC_RELEASED := $(shell which zigtsc 2>/dev/null || echo $(HOME)/.zigtsc/bin/zigtsc)
 
 # # Default target
-# all: build demo
+all: clean run
 
 # # Build the zigtsc binary
 # build:
@@ -13,6 +13,9 @@
 # Clean Zig cache and output
 clean:
 	rm -rf .zig-cache/ zig-out/ zig-pkg/
+
+run: 
+	zig build run
 
 # # Release: clean build, bump version, commit, tag, push.
 # # Usage: make release          (auto-bumps minor, e.g. 0.5.0 → 0.6.0)
@@ -91,4 +94,4 @@ clean:
 #         demo-released demo-released-check demo-released-init demo-released-transpile \
 #         demo-released-compile demo-released-run test-all website upgrade ship
 
-.PHONY: clean
+.PHONY: clean run all
